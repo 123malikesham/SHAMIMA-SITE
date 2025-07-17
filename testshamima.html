@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shamima Marketplace</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+    }
+
+    header {
+      background-color: #004d7a;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .hero {
+      background-color: #e1eff6;
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: #004d7a;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 30px;
+    }
+
+    .feature {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .feature h3 {
+      color: #0074a2;
+    }
+
+    .registration {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      max-width: 600px;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .registration h2 {
+      text-align: center;
+      color: #004d7a;
+      margin-bottom: 30px;
+    }
+
+    .registration label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .registration input,
+    .registration select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .registration button {
+      background-color: #0074a2;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .registration button:hover {
+      background-color: #005f80;
+    }
+
+    footer {
+      background-color: #004d7a;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* Product Section */
+    #searchBar {
+      margin: 30px auto 20px;
+      max-width: 700px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    #searchBar input, #searchBar select {
+      padding: 10px;
+      font-size: 16px;
+      flex: 1 1 250px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #productsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+
+    .productCard {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .productCard:hover {
+      transform: translateY(-5px);
+    }
+
+    .productCard img {
+      border-radius: 10px 10px 0 0;
+      object-fit: cover;
+      width: 100%;
+      height: 140px;
+    }
+
+    .productCard h3 {
+      margin: 12px 15px 8px;
+      font-size: 18px;
+      color: #004d7a;
+    }
+
+    .productCard .price {
+      margin: 0 15px 12px;
+      font-weight: 700;
+      color: #0074a2;
+      font-size: 16px;
+    }
+
+    .productCard button {
+      margin: 0 15px 15px;
+      padding: 10px;
+      background-color: #0074a2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color 0.2s ease;
+    }
+
+    .productCard button:hover {
+      background-color: #005f80;
+    }
+
+    /* Product Details */
+    #productDetails {
+      display: none;
+      max-width: 700px;
+      background: white;
+      margin: 40px auto 80px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      padding: 30px;
+    }
+
+    #productDetails img {
+      max-width: 100%;
+      border-radius: 10px;
+      height: 300px;
+      object-fit: contain;
+    }
+
+    #productDetails h2 {
+      margin-top: 20px;
+      color: #004d7a;
+    }
+
+    #productDetails .price {
+      font-size: 24px;
+      color: #0074a2;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    #productDetails p {
+      line-height: 1.5;
+      margin: 12px 0;
+    }
+
+    #productDetails button {
+      background-color: #004d7a;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin-top: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 15px;
+    }
+
+    #productDetails button:hover {
+      background-color: #00345a;
+    }
+
+    #backToProducts {
+      background: #aaa;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    #backToProducts:hover {
+      background: #888;
+    }
+
+    /* Cart moved to bottom right */
+    #cart {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 320px;
+      max-height: 50vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.25);
+      padding: 20px;
+      display: none;
+      z-index: 100;
+    }
+
+    #cart h3 {
+      margin-top: 0;
+      color: #004d7a;
+      font-weight: 700;
+    }
+
+    #cart ul {
+      list-style: none;
+      padding-left: 0;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+
+    #cart ul li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      align-items: center;
+    }
+
+    #cart ul li:last-child {
+      border-bottom: none;
+    }
+
+    #cart ul li button {
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 3px 8px;
+      font-size: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #cart button {
+      width: 100%;
+      background-color: #0074a2;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #cart button:hover {
+      background-color: #005f80;
+    }
+
+    /* Toggle button moved above the cart */
+    #cartToggleBtn {
+      position: fixed;
+      right: 20px;
+      bottom: 380px;
+      background-color: #004d7a;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 101;
+    }
+
+    /* Chat modal */
+    #chatModal {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      max-height: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 110;
+    }
+
+    #chatHeader {
+      background-color: #004d7a;
+      color: white;
+      padding: 10px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #chatMessages {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+      height: 280px;
+      background: #eef6fc;
+    }
+
+    #chatInputArea {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #chatInputArea input {
+      flex-grow: 1;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 0 0 0 10px;
+    }
+
+    #chatInputArea button {
+      background-color: #0074a2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 0 0 10px 0;
+      font-weight: 700;
+    }
+
+    #closeChatBtn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 650px) {
+      #productsGrid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      #cart {
+        width: 90vw;
+        right: 5vw;
+        bottom: 20px;
+        max-height: 40vh;
+      }
+      #cartToggleBtn {
+        right: 5vw;
+        bottom: 450px;
+      }
+      #chatModal {
+        width: 90vw;
+        right: 5vw;
+        bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Shamima</div>
+  <nav>
+    <a id="navHome">Home</a>
+    <a id="navProducts">Products</a>
+    <a href="#register" id="navRegister">Register</a>
+    <a href="#" id="navLogin">Login</a>
+  </nav>
+</header>
+
+<section class="hero" id="homeSection">
+  <h1>Buy Direct from Verified Sellers</h1>
+  <p>Shamima connects trusted sellers with buyers across Sierra Leone and beyond. Secure shopping, fast delivery.</p>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <h3>Secure Registration</h3>
+    <p>Buyers must register using National ID or Passport for safe, trusted transactions.</p>
+  </div>
+  <div class="feature">
+    <h3>Local & Global Products</h3>
+    <p>Explore a wide range of products from Sierra Leone and international markets.</p>
+  </div>
+  <div class="feature">
+    <h3>Real-Time Chat</h3>
+    <p>Contact vendors directly with in-platform messaging and support.</p>
+  </div>
+</section>
+
+<!-- Search and Filter -->
+<section id="searchBar" style="display:none;">
+  <input type="text" id="searchInput" placeholder="Search products by name..." />
+  <select id="categoryFilter">
+    <option value="">All Categories</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Fashion">Fashion</option>
+    <option value="Agriculture">Agriculture</option>
+    <option value="Home">Home</option>
+    <option value="Health">Health</option>
+  </select>
+</section>
+
+<!-- Products Grid -->
+<section id="productsGrid"></section>
+
+<!-- Product Details -->
+<section id="productDetails">
+  <button id="backToProducts">← Back to Products</button>
+  <img id="detailImg" src="" alt="Product Image" />
+  <h2 id="detailName"></h2>
+  <div class="price" id="detailPrice"></div>
+  <p id="detailDesc"></p>
+  <p><b>Category:</b> <span id="detailCategory"></span></p>
+  <p><b>Country of Origin:</b> <span id="detailCountry"></span></p>
+  <p><b>Seller:</b> <span id="detailSeller"></span></p>
+  <button id="btnAddToCart">Add to Cart</button>
+  <button id="btnContactSeller">Contact Seller</button>
+</section>
+
+<!-- Cart -->
+<div id="cart">
+  <h3>Your Cart</h3>
+  <ul id="cartItems"></ul>
+  <button id="btnCheckout">Checkout</button>
+</div>
+<button id="cartToggleBtn">Cart (0)</button>
+
+<!-- Chat Modal -->
+<div id="chatModal">
+  <div id="chatHeader">
+    <span>Chat with Seller</span>
+    <button id="closeChatBtn">&times;</button>
+  </div>
+  <div id="chatMessages"></div>
+  <div id="chatInputArea">
+    <input type="text" id="chatInput" placeholder="Type a message..." />
+    <button id="sendChatBtn">Send</button>
+  </div>
+</div>
+
+<!-- Buyer Registration -->
+<section class="registration" id="register">
+  <h2>Buyer Registration</h2>
+  <form action="#" method="POST" enctype="multipart/form-data" id="registrationForm">
+    <label for="fullname">Full Name</label>
+    <input type="text" id="fullname" name="fullname" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" placeholder="e.g. +23270000000" required />
+
+    <label for="country">Country</label>
+    <select id="country" name="country" required>
+      <option value="">--Select Country--</option>
+      <option value="Sierra Leone">Sierra Leone</option>
+      <option value="United States">United States</option>
+      <option value="China">China</option>
+      <option value="Nigeria">Nigeria</option>
+      <option value="Ghana">Ghana</option>
+      <option value="India">India</option>
+      <option value="United Kingdom">United Kingdom</option>
+      <!-- add more countries as needed -->
+    </select>
+
+    <label for="passport">Passport Number</label>
+    <input type="text" id="passport" name="passport" placeholder="Passport Number" />
+
+    <label for="nationalIdPhoto">National ID Card Photo</label>
+    <input type="file" id="nationalIdPhoto" name="nationalIdPhoto" accept="image/*" />
+
+    <button type="submit">Register</button>
+  </form>
+</section>
+
+<footer>
+  <p class="note">© 2025 Shamima Marketplace | Trusted platform for secure bulk transactions.</p>
+</footer>
+
+<script>
+  // Product Data
+  const products = [
+    {
+      id: 1,
+      name: "Smartphone XYZ",
+      price: 299.99,
+      description: "Latest smartphone with great camera and long battery life.",
+      category: "Electronics",
+      country: "China",
+      seller: "TechCorp",
+      image: "https://via.placeholder.com/300x200?text=Smartphone+XYZ"
+    },
+    {
+      id: 2,
+      name: "Men's Running Shoes",
+      price: 79.99,
+      description: "Comfortable and stylish running shoes for everyday use.",
+      category: "Fashion",
+      country: "USA",
+      seller: "ShoeMart",
+      image: "https://via.placeholder.com/300x200?text=Running+Shoes"
+    },
+    {
+      id: 3,
+      name: "Organic Fertilizer",
+      price: 25.50,
+      description: "Eco-friendly fertilizer to boost crop growth naturally.",
+      category: "Agriculture",
+      country: "Sierra Leone",
+      seller: "AgriPlus",
+      image: "https://via.placeholder.com/300x200?text=Fertilizer"
+    },
+    {
+      id: 4,
+      name: "Electric Kettle",
+      price: 45.00,
+      description: "Quick boiling kettle with automatic shut-off feature.",
+```
